@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Portfolio - Programmer & Game Dev</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        header { background: rgba(255,255,255,0.1); padding: 1rem; text-align: center; backdrop-filter: blur(10px); }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 2rem; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+        section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+        #home { text-align: center; color: white; padding-top: 6rem; }
+        h1 { font-size: 3rem; margin-bottom: 1rem; }
+        h2 { text-align: center; margin-bottom: 2rem; color: white; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .project-card { background: rgba(255,255,255,0.9); padding: 1.5rem; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.3s; }
+        .project-card:hover { transform: translateY(-10px); }
+        button { background: #4CAF50; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer; }
+        footer { text-align: center; padding: 2rem; color: white; background: rgba(0,0,0,0.3); }
+        @media (max-width: 768px) { nav ul { flex-direction: column; } h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Hi, I'm [Your Name]</h1>
+        <p>Class 9 Student | Python, JS, Game Dev Enthusiast from Narnaund, Haryana</p>
+        <button onclick="scrollToSection('projects')">View Projects</button>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Passionate about coding games, web apps, and customizing Linux like Arch with Celestial Shell. Currently building projects on mobile with VS Code and Pydroid3 while studying CBSE Class 9.</p>[memory:1][memory:3]
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Python Code Compiler Website</h3>
+                <p>A web app that runs Python in the browser using Pyodide. Perfect for quick testing.[memory:1]</p>
+                <a href="https://your-github-link.com" target="_blank">Live Demo</a>
+            </div>
+            <div class="project-card">
+                <h3>Low-Poly FPS Game</h3>
+                <p>First-person shooter with custom graphics and cont
