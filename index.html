@@ -1,96 +1,120 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Python Compiler</title>
-
-  <!-- Load Pyodide (Python in WebAssembly) -->
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.js"></script>
-  <style>
-    body { font-family: sans-serif; margin: 20px; background: #111; color: #eee; }
-    textarea { width: 100%; height: 200px; background: #1e1e1e; color: #fff; border: 1px solid #444; padding: 8px; }
-    #output { width: 100%; min-height: 120px; background: #000; color: #0f0; padding: 8px; white-space: pre-wrap; border: 1px solid #444; }
-    button { margin-top: 10px; padding: 8px 16px; background: #4caf50; border: none; color: #fff; cursor: pointer; }
-    button:disabled { background: #555; cursor: wait; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Kunal Bhaiya! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        h1 {
+            font-size: 4rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        .message {
+            font-size: 1.5rem;
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            animation: fadeInUp 2s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .cake {
+            font-size: 5rem;
+            animation: shake 1s infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+        }
+        button {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        button:hover {
+            transform: scale(1.1);
+            background: #ff3742;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: confetti-fall 3s linear infinite;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .message { font-size: 1.2rem; }
+        }
+    </style>
 </head>
 <body>
-  <h1>Python Code Runner</h1>
+    <div class="cake">🎂🎈🎁</div>
+    <h1>Happy Birthday, Kunal Bhaiya! 🎉</h1>
+    <p class="message">To the most loved person in our lives! Your smile lights up every room, your kindness inspires us all, and your awesomeness knows no bounds. Wishing you a year filled with success, joy, adventures, and endless happiness. We love you more than words can say! ❤️</p>
+    <button onclick="launchConfetti()">Launch Confetti! 🎊</button>
 
-  <p>Write Python code below and click Run.</p>
-
-  <textarea id="code">
-print("Hello from Python!")
-for i in range(3):
-    print("i =", i)
-  </textarea>
-
-  <br />
-  <button id="run-btn" disabled>Loading Python...</button>
-
-  <h2>Output</h2>
-  <div id="output"></div>
-
-  <script>
-    let pyodide = null;
-
-    // Load Pyodide
-    async function loadPython() {
-      pyodide = await loadPyodide();   // comes from pyodide.js
-      document.getElementById("run-btn").textContent = "Run";
-      document.getElementById("run-btn").disabled = false;
-    }
-    loadPython();
-
-    // Capture print output
-    function makePrintHook(outputElem) {
-      return function () {
-        const text = Array.from(arguments).join(" ") + "
-";
-        outputElem.textContent += text;
-      };
-    }
-
-    async function runCode() {
-      const btn = document.getElementById("run-btn");
-      const out = document.getElementById("output");
-      const code = document.getElementById("code").value;
-
-      out.textContent = "";          // clear previous output
-      btn.disabled = true;
-      btn.textContent = "Running...";
-
-      try {
-        // Redirect Python print to our div
-        pyodide.globals.set("py_print", makePrintHook(out));
-        await pyodide.runPythonAsync(`
-import sys, textwrap
-from js import py_print
-
-class StdoutCatcher:
-    def write(self, s):
-        if s.strip():
-            py_print(s, end="")
-
-    def flush(self):
-        pass
-
-sys.stdout = StdoutCatcher()
-sys.stderr = StdoutCatcher()
-
-code = """${code.replace(/`/g, "\\`")}"""
-exec(code, {})
-        `);
-      } catch (err) {
-        out.textContent += "Error: " + err + "
-";
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Run";
-      }
-    }
-
-    document.getElementById("run-btn").addEventListener("click", runCode);
-  </script>
+    <script>
+        function launchConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+        // Auto-launch some confetti on load
+        window.onload = () => launchConfetti();
+    </script>
 </body>
 </html>
