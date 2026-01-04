@@ -3,118 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Kunal Bhaiya! 🎉</title>
+    <title>Happy Birthday Kunal Bhaiya!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary-gold: #D4AF37;
+            --dark-blue: #0A192F;
+            --soft-white: #F8F9FA;
         }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-blue);
+            color: var(--soft-white);
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: white;
-            overflow-x: hidden;
-            position: relative;
+            background: radial-gradient(circle, #112240 0%, #0A192F 100%);
+            padding: 20px;
         }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+
         h1 {
-            font-size: 4rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-        .message {
-            font-size: 1.5rem;
-            text-align: center;
-            max-width: 600px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            animation: fadeInUp 2s ease;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .cake {
+            font-family: 'Dancing Script', cursive;
             font-size: 5rem;
-            animation: shake 1s infinite;
-            margin-bottom: 20px;
+            color: var(--primary-gold);
+            margin: 0;
+            animation: glow 2s ease-in-out infinite alternate;
         }
-        @keyframes shake {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
+
+        .subtitle {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            opacity: 0.8;
         }
-        button {
-            background: #ff4757;
-            color: white;
-            border: none;
+
+        /* Message Box */
+        .message-container {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight {
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        /* Fun Buttons */
+        .btn {
+            background: var(--primary-gold);
+            color: var(--dark-blue);
             padding: 15px 30px;
-            font-size: 1.2rem;
+            border: none;
             border-radius: 50px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+            margin-top: 30px;
+            text-decoration: none;
+            display: inline-block;
         }
-        button:hover {
+
+        .btn:hover {
             transform: scale(1.1);
-            background: #ff3742;
         }
+
+        /* Confetti Effect Simulation */
         .confetti {
             position: absolute;
             width: 10px;
             height: 10px;
-            background: #ffd700;
-            animation: confetti-fall 3s linear infinite;
+            background-color: var(--primary-gold);
+            opacity: 0.7;
+            animation: fall 3s linear infinite;
         }
-        @keyframes confetti-fall {
-            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff, 0 0 20px var(--primary-gold); }
+            to { text-shadow: 0 0 20px #fff, 0 0 30px #FFD700; }
         }
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .message { font-size: 1.2rem; }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        footer {
+            padding: 40px;
+            font-size: 0.9rem;
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
-    <div class="cake">🎂🎈🎁</div>
-    <h1>Happy Birthday, Kunal Bhaiya! 🎉</h1>
-    <p class="message">To the most loved person in our lives! Your smile lights up every room, your kindness inspires us all, and your awesomeness knows no bounds. Wishing you a year filled with success, joy, adventures, and endless happiness. We love you more than words can say! ❤️</p>
-    <button onclick="launchConfetti()">Launch Confetti! 🎊</button>
+
+    <section class="hero">
+        <div id="confetti-wrapper"></div>
+        <p class="subtitle">Celebration of the Legend</p>
+        <h1>Kunal Bhaiya</h1>
+        <p class="subtitle">The Most Loved Person</p>
+        <a href="#wish" class="btn">Read Your Wishes</a>
+    </section>
+
+    <section class="message-container" id="wish">
+        <div class="card">
+            <h2>Happy Birthday, <span class="highlight">Bhaiya!</span></h2>
+            <p>To the man who guides us, inspires us, and makes every day better just by being in it. You aren't just a brother; you are a mentor and a best friend.</p>
+            <p>May your year be filled with <span class="highlight">Success, Health, and Endless Joy.</span></p>
+            <hr style="border: 0.5px solid rgba(212, 175, 55, 0.2); margin: 30px 0;">
+            <p><i>"A brother is a gift to the heart, a friend to the spirit."</i></p>
+        </div>
+        
+        <button class="btn" onclick="celebrate()">Click for a Surprise! 🎉</button>
+    </section>
+
+    <footer>
+        Made with ❤️ for Kunal Bhaiya
+    </footer>
 
     <script>
-        function launchConfetti() {
-            for (let i = 0; i < 100; i++) {
+        // Simple function to create falling "confetti"
+        function celebrate() {
+            for(let i=0; i<50; i++) {
                 const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-                confetti.style.animationDelay = Math.random() * 3 + 's';
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.animationDuration = (Math.random() * 2 + 1) + "s";
+                confetti.style.backgroundColor = ["#D4AF37", "#FFFFFF", "#FFD700"][Math.floor(Math.random()*3)];
                 document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 5000);
+                
+                setTimeout(() => { confetti.remove(); }, 3000);
             }
+            alert("Cheers to the best Bhaiya in the world! 🥂");
         }
-        // Auto-launch some confetti on load
-        window.onload = () => launchConfetti();
+
+        // Generate some initial decor
+        const wrapper = document.getElementById('confetti-wrapper');
+        for(let i=0; i<20; i++) {
+            const dot = document.createElement('div');
+            dot.style.position = "absolute";
+            dot.style.width = "2px";
+            dot.style.height = "2px";
+            dot.style.background = "white";
+            dot.style.top = Math.random() * 100 + "vh";
+            dot.style.left = Math.random() * 100 + "vw";
+            dot.style.opacity = Math.random();
+            wrapper.appendChild(dot);
+        }
     </script>
 </body>
-</html>
+            </html>
+            
