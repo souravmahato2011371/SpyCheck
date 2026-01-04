@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Python Compiler</title>
+
+  <!-- Load Pyodide (Python in WebAssembly) -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.28.0/full/pyodide.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 20px; background: #111; color: #eee; }
+    textarea { width: 100%; height: 200px; background: #1e1e1e; color: #fff; border: 1px solid #444; padding: 8px; }
+    #output { width: 100%; min-height: 120px; background: #000; color: #0f0; padding: 8px; white-space: pre-wrap; border: 1px solid #444; }
+    button { margin-top: 10px; padding: 8px 16px; background: #4caf50; border: none; color: #fff; cursor: pointer; }
+    button:disabled { background: #555; cursor: wait; }
+  </style>
+</head>
+<body>
+  <h1>Python Code Runner</h1>
+
+  <p>Write Python code below and click Run.</p>
+
+  <textarea id="code">
+print("Hello from Python!")
+for i in range(3):
+    print("i =", i)
+  </textarea>
+
+  <br />
+  <button id="run-btn" disabled>Loading Python...</button>
+
+  <h2>Output</h2>
+  <div id="output"></div>
+
+  <script>
+    let pyodide = null;
+
+    // Load Pyodide
+    async function loadPython() {
+      pyodide = await loadPyodide();   // comes from pyodide.js
+      document.getElementById("run-btn").textContent = "Run";
+      document.getElementById("run-btn").disabled = false;
+    }
+    loadPython();
+
+    // Capture print output
+    function makePrintHook(outputElem) {
+      return function () {
+        const text = Array.from(arguments).join(" ") + "
+";
+        outputElem.textContent += text;
+      };
+    }
+
+    async function runCode() {
+      const btn = document.getElementById("run-btn");
+      const out = document.getElementById("output");
+      const code = document.getElementById("code").value;
+
+      out.textContent = "";          // clear previous output
+      btn.disabled = true;
+      btn.textContent = "Running...";
+
+      try {
+        // Redirect Python print to our div
+        pyodide.globals.set("py_print", makePrintHook(out));
+        await pyodide.runPythonAsync(`
+import sys, textwrap
+from js import py_print
+
+class StdoutCatcher:
+    def write(self, s):
+        if s.strip():
+            py_print(s, end="")
+
+    def flush(self):
+        pass
+
+sys.stdout = StdoutCatcher()
+sys.stderr = StdoutCatcher()
+
+code = """${code.replace(/`/g, "\\`")}"""
+exec(code, {})
+        `);
+      } catch (err) {
+        out.textContent += "Error: " + err + "
+";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Run";
+      }
+    }
+
+    document.getElementById("run-btn").addEventListener("click", runCode);
+  </script>
+</body>
+</html>
